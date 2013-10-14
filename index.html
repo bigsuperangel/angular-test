@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html ng-app="plunker">
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+
+        Getting started &middot; Bootstrap
+
+    </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="css/demo.css" rel="stylesheet">
+    <!-- Documentation extras -->
+    <link href="css/docs.css" rel="stylesheet">
+
+
+    <!-- Place anything custom after this. -->
+</head>
+<body>
+<a class="sr-only" href="#content">Skip navigation</a>
+
+<!-- Docs master nav -->
+<header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="dropdown pull-left">
+                <a class="brand dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                    UI Bootstrap
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a href="https://github.com/angular-ui/"><strong>Related Projects:</strong></a></li>
+                    <li class="divider"></li>
+                    <li><a href="http://angular-ui.github.io/">AngularUI</a></li>
+                    <li><a href="http://angular-ui.github.io/ng-grid/">Grid</a></li>
+                    <li><a href="https://github.com/angular-ui/AngularJs.tmbundle">AngularJS.tmbundle</a></li>
+                    <li><a href="https://github.com/angular-ui/ui-router">Router <span class="label label-success">New!</span></a></li>
+                </ul>
+            </div>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li>
+                        <a href="#" role="button" class="dropdown-toggle">
+                            Directives <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="#accordion">Accordion</a></li>
+
+                            <li><a href="#alert">Alert</a></li>
+
+                            <li><a href="#buttons">Buttons</a></li>
+
+                            <li><a href="#carousel">Carousel</a></li>
+
+                            <li><a href="#collapse">Collapse</a></li>
+
+                            <li><a href="#datepicker">Datepicker</a></li>
+
+                            <li><a href="#dropdownToggle">Dropdown Toggle</a></li>
+
+                            <li><a href="#modal">Modal</a></li>
+
+                            <li><a href="#pagination">Pagination</a></li>
+
+                            <li><a href="#popover">Popover</a></li>
+
+                            <li><a href="#progressbar">Progressbar</a></li>
+
+                            <li><a href="#rating">Rating</a></li>
+
+                            <li><a href="#tabs">Tabs</a></li>
+
+                            <li><a href="#timepicker">Timepicker</a></li>
+
+                            <li><a href="#tooltip">Tooltip</a></li>
+
+                            <li><a href="#typeahead">Typeahead</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#getting_started">Getting started</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Docs page layout -->
+<div class="bs-header" id="content">
+    <div class="container">
+        <h1>Getting started</h1>
+        <p>An overview of Bootstrap, how to download and use, basic templates and examples, and more.</p>
+        </div></div>
+
+    </div>
+</div>
+
+<!-- Callout for the old docs link -->
+<div class="bs-old-docs">
+    <div class="container">
+        <strong>
+            <a href="../2.3.2/">Looking for Bootstrap 2.3.2 docs?</a>
+        </strong>
+        We've moved it to a new home while we push forward with Bootstrap 3. <a href="http://blog.getbootstrap.com/">Read the blog</a> for details.
+    </div>
+</div>
+
+
+<div class="container bs-docs-container">
+<div class="row">
+<div class="col-md-3">
+    <div ng-controller="AccordionDemoCtrl">
+        <label class="checkbox">
+            <input type="checkbox" ng-model="oneAtATime">
+            Open only one at a time
+        </label>
+
+        <accordion close-others="oneAtATime">
+
+            <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+               <div ng-repeat="str in group.content">
+                  <a ng-href="{{str.href}}"><span style="color: #000000">{{str.tip}}</span></a>
+               </div>
+            </accordion-group>
+
+        </accordion>
+    </div>
+</div>
+<div class="col-md-9">
+    <div ng-view></div>
+</div>
+</div>
+</div>
+<!-- Footer
+================================================== -->
+<footer class="bs-footer" role="contentinfo">
+    <div class="container">
+
+
+        <p>Designed and built with all the love in the world by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+        <ul class="footer-links">
+            <li><a href="../2.3.2/">Bootstrap 2.3.2 docs</a></li>
+            <li class="muted">&middot;</li>
+            <li><a href="http://blog.getbootstrap.com">Blog</a></li>
+            <li class="muted">&middot;</li>
+            <li><a href="https://github.com/twbs/bootstrap/issues?state=open">Issues</a></li>
+            <li class="muted">&middot;</li>
+            <li><a href="https://github.com/twbs/bootstrap/releases">Releases</a></li>
+        </ul>
+    </div>
+</footer>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+    <script src="example.js"></script>
+</body>
+</html>

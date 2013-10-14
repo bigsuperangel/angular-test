@@ -1,0 +1,19 @@
+   <br>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td><strong>ID</strong></td>
+            <td><strong>Subject</strong></td>
+            <td><strong>Sender</strong></td>
+            <td><strong>Message</strong></td>
+            <td><strong>Operate</strong></td>
+        </tr>
+        <tr ng-repeat="message in messages">
+            <td><a href='#/view/{{message.id}}'>{{message.id}}</a></td>
+            <td>{{message.subject}}</td>
+            <td>{{message.sender}}</td>
+            <td>{{message.message}}</td>
+            <td><button type="button" class="btn btn-primary" ng-click="del(message.id)">删除</button></td>
+        </tr>
+    </table>
+   <pagination boundary-links="true" total-items="totalItems" page="currentPage" on-select-page="changePage(page)"
+               class="pagination-small" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
