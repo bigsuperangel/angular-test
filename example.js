@@ -126,6 +126,7 @@ function ListController($scope,$log,$http,$location,$window,$route){
                 $log.log('error');
             });
         console.info($location.path());
+        //重刷页面
         $route.reload();
     }
 }
@@ -149,7 +150,8 @@ function DetailController($scope, $routeParams,$location,$http,$log){
                     $log.log('error');
                 });
         });
-        $location.path("#/list");
+        //$location.path("#/list");
+        $location.url('/list');
     }
 
     //获取某条详细信息
@@ -189,6 +191,8 @@ function AddController($scope,$location,$http,$log){
                     $log.log('error');
                 });
         });
-        $location.path("#/list");
+        //$location.path("#/list");
+        //已经包含前缀，不用加，直接跳转到list页面
+        $location.url('/list');
     };
 }
