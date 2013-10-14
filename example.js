@@ -73,7 +73,7 @@ function AccordionDemoCtrl($scope) {
 
 }
 
-function ListController($scope,$log,$http,$location,$window){
+function ListController($scope,$log,$http,$location,$window,$route){
     //获取首次进入的数据
     $http({method:'jsonp', url: 'http://localhost:7080/Demo/msg/list.do?callback=JSON_CALLBACK',params: {page:'1',rows:'10'}}).
         success(function(data, status, headers, config) {
@@ -126,7 +126,7 @@ function ListController($scope,$log,$http,$location,$window){
                 $log.log('error');
             });
         console.info($location.path());
-        $location.path("#/list");
+        $route.reload();
     }
 }
 
