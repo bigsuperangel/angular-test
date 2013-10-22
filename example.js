@@ -1,7 +1,32 @@
 /**
  * Created by Administrator on 13-10-11.
  */
-var service = angular.module('plunker', ['ui.bootstrap']);
+var service = angular.module('plunker', ['ui.bootstrap','angularBootstrapNavTree']);
+service.directive("tree", function($compile) {
+    return {
+        restrict: "E",
+        scope: {family: '='},
+        template:
+            '<p>{{ family.dictName }}</p>'+
+                '<ul>' +
+                '<li ng-repeat="child in family.children">' +
+                '<tree family="child"></tree>' +
+                '</li>' +
+                '</ul>',
+        compile: function(tElement, tAttr) {
+            var contents = tElement.contents().remove();
+            var compiledContents;
+            return function(scope, iElement, iAttr) {
+                if(!compiledContents) {
+                    compiledContents = $compile(contents);
+                }
+                compiledContents(scope, function(clone, scope) {
+                    iElement.append(clone);
+                });
+            };
+        }
+    };
+});
 
 //Set up our mappings between URLs, tempaltes. and  controllers
 function emailRouteConfig($routeProvider){
@@ -22,6 +47,42 @@ function emailRouteConfig($routeProvider){
         when('/add', {
             controller: AddController,
             templateUrl: 'add.html'
+        }).
+        when('/tree', {
+            controller: TreeController,
+            templateUrl: 'tree.html'
+        }).
+        when('/login', {
+            controller: LoginController,
+            templateUrl: 'login.html'
+        }).
+        when('/advise', {
+            controller: AdviseController,
+            templateUrl: 'advise.html'
+        }).
+        when('/jobList', {
+            controller: JobListController,
+            templateUrl: 'jobList.html'
+        }).
+        when('/jobDetail', {
+            controller: JobDetailController,
+            templateUrl: 'jobDetail.html'
+        }).
+        when('/memberJobList', {
+            controller: MemberJobListController,
+            templateUrl: 'memberJobList.html'
+        }).
+        when('/memberJobInfo', {
+            controller: MemberJobInfoController,
+            templateUrl: 'memberJobInfo.html'
+        }).
+        when('/finishJob', {
+            controller: FinishJobController,
+            templateUrl: 'finishJob.html'
+        }).
+        when('/canncelJob', {
+            controller: CanncelJobController,
+            templateUrl: 'memberJobInfo.html'
         }).
         otherwise({
             redirectTo: '/'
@@ -51,7 +112,7 @@ service.config(emailRouteConfig);
 //        message: "Nobody panic, but my pet python is missing from her cage. She doesn't move too fast, so just call me if you see her."
 //    }];
 
-function AccordionDemoCtrl($scope) {
+function AccordionDemoCtrl($scope,$http,$log) {
     $scope.oneAtATime = true;
 
     $scope.groups = [
@@ -67,6 +128,28 @@ function AccordionDemoCtrl($scope) {
                 tip:"list",href: "#/list"
             },{
                 tip: "add", href: "#/add"
+            },{
+                tip: "tree", href: "#/tree"
+            }]
+        },
+        {
+            title: "健康平台",
+            content: [{
+                tip: "登录", href: "#/login"
+            },{
+                tip: "医生建议", href: "#/advise"
+            },{
+                tip: "任务中心", href: "#/jobList"
+            },{
+                tip: "任务详情", href: "#/jobDetail"
+            },{
+                tip: "我的任务列表", href: "#/memberJobList"
+            },{
+                tip: "我的任务详情", href: "#/memberJobInfo"
+            },{
+                tip: "完成任务", href: "#/finishJob"
+            },{
+                tip: "取消任务", href: "#/canncelJob"
             }]
         }
     ];
@@ -196,3 +279,21 @@ function AddController($scope,$location,$http,$log){
         $location.url('/list');
     };
 }
+
+function TreeController($scope,$location,$http,$log){
+    $http({method:'jsonp', url: 'http://localhost:7080/Demo/dict/tree.do?callback=JSON_CALLBACK',params: $scope.message}).
+        success(function(data, status, headers, config) {
+            // this callback will be called asynchronously
+            // when the response is available
+            $log.log(JSON.stringify(data[0]));
+            $scope.treeFamily = data[0];
+            //$scope.message = data;
+        }).
+        error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $log.log('error');
+        });
+
+}
+
