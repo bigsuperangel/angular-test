@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 13-10-21.
  */
-function LoginController($scope,$location,$http,$log,$rootScope){
+function LoginController($scope,$location,$http,$log,$rootScope,url_param){
     $scope.save = function(){
         getSession($scope,$http,$log);
     }
@@ -31,7 +31,7 @@ function AdviseController($scope,$location,$http,$log,$modal){
 
 function AdviseModelCtrl($scope, $modalInstance, memberTaskId,$log,sessionID,sessionMemberID,$http){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/taskSuggest',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberTaskId:memberTaskId});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberTaskId:memberTaskId},url_param);
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
@@ -66,7 +66,7 @@ function JobListController($scope,$location,$http,$log,$modal){
 
 function JobListModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,page,rows){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/jobList',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,page:page,rows:rows});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,page:page,rows:rows},url_param);
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -98,7 +98,7 @@ function JobDetailController($scope,$location,$http,$log,$modal){
 
 function JobDetailModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,jobId){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/jobDetail',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,jobId:jobId});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,jobId:jobId},url_param);
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -138,7 +138,7 @@ function MemberJobListController($scope,$location,$http,$log,$modal){
 
 function MemberJobListModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,type,page,rows){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/memberJobList',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,type:type,page:page,rows:rows});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,type:type,page:page,rows:rows},url_param);
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -170,7 +170,7 @@ function MemberJobInfoController($scope,$location,$http,$log,$modal){
 
 function MemberJobInfoModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,memberJobId){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/memberJobInfo',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberJobId:memberJobId});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberJobId:memberJobId},url_param);
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -202,7 +202,7 @@ function FinishJobController($scope,$location,$http,$log,$modal){
 
 function FinishJobModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,memberJobDetailId){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/finishJob',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberJobDetailId:memberJobDetailId});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberJobDetailId:memberJobDetailId},url_param);
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -234,9 +234,69 @@ function CanncelJobController($scope,$location,$http,$log,$modal){
 
 function CanncelJobModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,memberJobId){
     common_http($scope,$http,$log,method,per_url,'/health/mobile/job/canncelJob',
-        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberJobId:memberJobId});
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,memberJobId:memberJobId},url_param);
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 }
+
+//手机端首页接口
+function CurrentDayJobController($scope,$location,$http,$log,$modal){
+    $scope.memberJobId = '20131019418125';
+    getSession($scope,$http,$log);
+    $scope.open = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'modal.html',
+            controller: CurrentDayJobModalCtrl,
+            resolve: {
+                sessionID: function(){
+                    return $scope.sessionID;
+                },
+                sessionMemberID:function(){
+                    return $scope.sessionMemberID;
+                }
+            }
+        });
+    }
+}
+function CurrentDayJobModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http){
+    common_http($scope,$http,$log,method,per_url,'/health/mobile/job/currentDayJob',
+        {sessionID:sessionID,sessionMemberID:sessionMemberID},url_param);
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}
+
+//手机端首页接口
+function GetJobController($scope,$location,$http,$log,$modal){
+    $scope.jobId = 6;
+    getSession($scope,$http,$log);
+    $scope.open = function () {
+        var modalInstance = $modal.open({
+            templateUrl: 'modal.html',
+            controller: GetJobModalCtrl,
+            resolve: {
+                sessionID: function(){
+                    return $scope.sessionID;
+                },
+                sessionMemberID:function(){
+                    return $scope.sessionMemberID;
+                },
+                jobId: function () {
+                    return $scope.jobId;
+                }
+            }
+        });
+    }
+}
+function GetJobModalCtrl($scope, $modalInstance,$log,sessionID,sessionMemberID,$http,jobId){
+    common_http($scope,$http,$log,method,per_url,'/health/mobile/job/getJob',
+        {sessionID:sessionID,sessionMemberID:sessionMemberID,jobId:jobId},url_param);
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}
+
